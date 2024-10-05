@@ -10,6 +10,7 @@ import pe.edu.cibertec.patitas_backend.dto.LoginResponseDTO;
 import pe.edu.cibertec.patitas_backend.service.AutenticacionService;
 
 import java.io.IOException;
+import java.time.Duration;
 
 @RestController
 @RequestMapping("/autenticacion")
@@ -23,6 +24,7 @@ public class AutenticacionController {
 
         try{
 
+            Thread.sleep(Duration.ofSeconds(5));
             String[] datosUsuario = autenticacionService.validarUsuario((loginRequestDTO));
 
             if(datosUsuario == null){
@@ -34,6 +36,10 @@ public class AutenticacionController {
         } catch (IOException e) {
 
             return new LoginResponseDTO("99", "Error: Ocurrió un problema", "", "");
+
+        } catch (InterruptedException e) {
+
+            throw new RuntimeException(e);
 
         }
 

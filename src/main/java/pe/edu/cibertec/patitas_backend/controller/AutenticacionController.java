@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pe.edu.cibertec.patitas_backend.dto.LoginRequestDTO;
 import pe.edu.cibertec.patitas_backend.dto.LoginResponseDTO;
+import pe.edu.cibertec.patitas_backend.dto.LogoutRequestDTO;
+import pe.edu.cibertec.patitas_backend.dto.LogoutResponseDTO;
 import pe.edu.cibertec.patitas_backend.service.AutenticacionService;
 
 import java.io.IOException;
@@ -36,6 +38,28 @@ public class AutenticacionController {
         } catch (IOException e) {
 
             return new LoginResponseDTO("99", "Error: Ocurrió un problema", "", "");
+
+        } catch (InterruptedException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
+    @PostMapping("/logout")
+    public LogoutResponseDTO logout(@RequestBody LogoutRequestDTO logoutRequestDTO) {
+
+        try {
+
+            Thread.sleep(Duration.ofSeconds(5));
+            autenticacionService.registrarLogout(logoutRequestDTO);
+
+            return new LogoutResponseDTO("00", "Logout exitoso");
+
+        } catch (IOException e) {
+
+            return new LogoutResponseDTO("99", "Error: Ocurrió un problema");
 
         } catch (InterruptedException e) {
 

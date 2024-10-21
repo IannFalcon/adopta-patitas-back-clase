@@ -6,11 +6,10 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import pe.edu.cibertec.patitas_backend.dto.LoginRequestDTO;
 import pe.edu.cibertec.patitas_backend.dto.LogoutRequestDTO;
-import pe.edu.cibertec.patitas_backend.dto.LogoutResponseDTO;
 import pe.edu.cibertec.patitas_backend.service.AutenticacionService;
 
 import java.io.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 public class AutenticacionServiceImpl implements AutenticacionService {
@@ -57,7 +56,7 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
         String path = "src/main/resources/logout.txt";
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
-            writer.write(logoutRequestDTO.tipoDocumento() + ";" + logoutRequestDTO.numeroDocumento() + ";" + LocalDate.now() + "\n");
+            writer.write(logoutRequestDTO.tipoDocumento() + ";" + logoutRequestDTO.numeroDocumento() + ";" + LocalDateTime.now() + "\n");
         } catch (IOException e) {
             throw new IOException("Error al escribir en logout.txt", e);
         }
